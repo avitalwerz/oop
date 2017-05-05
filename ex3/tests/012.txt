@@ -1,0 +1,6 @@
+# simple delete + size
+
+add Hi true
+delete Hi true
+size 0
+

@@ -1,0 +1,156 @@
+avitalwerz
+
+netta.barak, michal.maayan
+
+===================
+files:
+==================
+SimpleHashSet.java
+OpenHashSet.java
+ClosedHashSet.java
+CollectionFacadeSet.java
+MyLinkedList.java
+SimpleSetPerformanceAnalyzer.java
+
+===================
+files description:
+==================
+MyLinkedList -
+A wrapper for java's linkedlist, extends from CollectionFacadeSet class.
+the only implementation in this class is the Iterator method, which helped when
+needed to do rehashing in openHash.
+
+How you implemented OpenHashSet’s table:
+I created an array build of linkedlists. I wrapped the java's LinkedList with the class MyLinkedList that
+extends from CollectionFacadeSet class. I used this method because it allowed me to keep the minimal API principal.
+All the methods i needed for the linkedlist wrapper were implemented in CollectionFacadeSet class.
+
+
+How you implemented the deletion mechanism in ClosedHashSet:
+I choose to mark the deleted cells with empty string "".
+I did it because i couldn't use the null value to mark deleted cells, so i had to mark them with a legal sign -
+string type. using empty string made the searching / adding element in the array easier.
+
+---------------------------
+
+The results of the analysis:
+1. These values correspond to the time it takes (in ms) to insert data1 to all data structures
+OpenHashSet_AddData1 = 162544
+ClosedHashSet_AddData1 = 87378
+TreeSet_AddData1 = 76  <--- the fastest
+LinkedList_AddData1 = 44600
+HashSet_AddData1 = 44126
+
+2.These values correspond to the time it takes (in ms) to insert data2 to all data structures
+OpenHashSet_AddData2 = 38
+ClosedHashSet_AddData2 = 174
+TreeSet_AddData2 = 26
+LinkedList_AddData2 = 29623
+HashSet_AddData2 = 6 <--- the fastest
+
+3.Comparison between adding data1 and data2:
+OpenHashSet- 162544: 38.
+inserting data2 was much more faster. It does make sense because all the elements in data2 distributed
+more uniformly.
+CloseHashSet - 87378: 174.
+inserting data2 was much more faster. It make sense because each String have different Hashcode, so there
+is no overlap of 2 string on the same cell.
+TreeSet - 76:26.
+Pretty much similar. not so big difference in time.
+LinkedList - 44600:29623.
+Pretty much similar.
+Hashset - 44126: 6.
+Big difference.
+
+4.These values correspond to the time it takes (in ns) to check if "hi" is contained in
+  the data structures initialized with data1
+  OpenHashSet_Contains_hi1 = 28
+  ClosedHashSet_Contains_hi1 = 10
+  TreeSet_Contains_hi1 = 31
+  LinkedList_Contains_hi1 = 10
+  HashSet_Contains_hi1 = 9 <---- the fastest.
+
+5.These values correspond to the time it takes (in ns) to check if "-13170890158" is contained in
+ the data structures initialized with data1
+  OpenHashSet_Contains_negative = 8
+  ClosedHashSet_Contains_negative = 9
+  TreeSet_Contains_negative = 8
+  LinkedList_Contains_negative = 8
+  HashSet_Contains_negative = 5 <-- the fastest
+
+6.These values correspond to the time it takes (in ns) to check if "23" is contained in
+  the data structures initialized with data2
+  OpenHashSet_Contains_23 =  8
+  ClosedHashSet_Contains_23 = 11
+  TreeSet_Contains_23 = 5
+  LinkedList_Contains_23 = 9
+  HashSet_Contains_23 = 4 <-- the fastest
+
+
+7.These values correspond to the time it takes (in ns) to check if "hi" is contained in
+   the data structures initialized with data2
+   OpenHashSet_Contains_hi2 = 2 <-- the fastest.
+   ClosedHashSet_Contains_hi2 = 11
+   TreeSet_Contains_hi2 = 7
+   LinkedList_Contains_hi2 = 14
+   HashSet_Contains_hi2 = 5
+
+OpenHashSet’s and ClosedHashSet’s bad results for data1.txt:
+OpenHashSet:
+Add data1:162544 ms
+contains "hi": 28 ns
+contains -13170890158: 8 ns
+
+ClosedHashSEt:
+Add data1:87378 ms
+contains "hi": 10 ns
+contains -13170890158: 9ns
+We can see that the difference between closed and open is not so critic yes the close has better running time
+in most cases.
+
+Summarize the strengths and weaknesses of each of the data structures as reflected by
+the results. Which would you use for which purposes?
+OpenHashSet:
+Strengths:
+Finding a value quickly. easy access to values.
+weaknesses:
+
+ClosedHashSet:
+Strengths:
+
+weaknesses:
+
+TreeSet:
+Strengths:
+
+weaknesses:
+
+LinkedList:
+Strengths:
+
+weaknesses:
+
+HashSet:
+Strengths:
+
+weaknesses:
+
+
+How did your two implementations compare between themselve:
+From the results of the testing we can see that there is no big differences in time between the closedHash and
+the openHash, yet the closedHash was faster in most tests.
+
+How did your implementations compare to Java’s built in HashSet?
+From the resutls we can see that Java's built in HashSet was faster then OpenHashSet,
+but in searching a value it was pretty much the same run-time.
+
+What results surprised you and which did you expect?
+I was surprised when i saw that the results of the closedHash were better than the openHash.
+I was sure the openHash will be significantly more effective and faster.
+I also was very surprised from the results of the TreeSet's tests.
+I was expecting the the linkedlist will be faster when it comes to adding elements.
+
+If you tried clamping expressions to valid indices in more than one way, what were they
+and how significant was the speed-up?
+I didn't try  so.
+
